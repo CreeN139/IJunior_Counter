@@ -5,6 +5,7 @@ using UnityEngine;
 public class Counter : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
+    private WaitForSeconds _pause;
     private int _counter;
     private bool _isStoped = false;
     private float _delay = 0.5f;
@@ -13,6 +14,7 @@ public class Counter : MonoBehaviour
     private void Awake()
     {
         _text = GetComponent<TextMeshProUGUI>();
+        _pause = new WaitForSeconds(_delay);
     }
 
     private void Update()
@@ -32,7 +34,7 @@ public class Counter : MonoBehaviour
         _counter++;
         _text.text = "Counter: " + _counter.ToString();
 
-        yield return new WaitForSeconds(_delay);
+        yield return _pause;
 
         _isDelayed = false;
     }
