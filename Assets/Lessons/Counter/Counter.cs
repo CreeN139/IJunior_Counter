@@ -1,25 +1,24 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private UserInput _userInput;
+    private int _counter = 0;
     private WaitForSeconds _pause;
-    private int _counter;
-    private bool _isStoped = false;
     private float _delay = 0.5f;
     private bool _isDelayed;
 
+    public int CounterValue => _counter;
+
     private void Awake()
     {
-        _text = GetComponent<TextMeshProUGUI>();
         _pause = new WaitForSeconds(_delay);
     }
 
     private void Update()
     {
-        if (isStoped() == false)
+        if (_userInput.IsStoped() == false)
         {
             if (_isDelayed == false)
             {
@@ -32,22 +31,7 @@ public class Counter : MonoBehaviour
     {
         _isDelayed = true;
         _counter++;
-        _text.text = "Counter: " + _counter.ToString();
-
         yield return _pause;
-
         _isDelayed = false;
-    }
-
-    private bool isStoped()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            return _isStoped = !_isStoped;
-        }
-        else
-        {
-            return _isStoped;
-        }
     }
 }
