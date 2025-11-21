@@ -1,18 +1,21 @@
+using System;
 using UnityEngine;
 
 public class UserInput : MonoBehaviour
 {
-    private bool _isStoped = false;
+    public event Action OnButtonPressed;
 
-    public bool IsStoped()
+    private void Update()
+    {
+        OnButtonClicked();
+    }
+
+    private void OnButtonClicked()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            return _isStoped = !_isStoped;
-        }
-        else
-        {
-            return _isStoped;
+            Debug.Log("Клавиша мыши нажата");
+            OnButtonPressed?.Invoke();
         }
     }
 }

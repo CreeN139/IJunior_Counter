@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -11,8 +12,18 @@ public class CounterView : MonoBehaviour
         _text = GetComponent<TextMeshProUGUI>();
     }
 
-    void Update()
+    private void OnEnable()
     {
-        _text.text = "Counter: " + _counter.CounterValue.ToString();
+        _counter.CounterChanged += UpdateCounter;
+    }
+
+    private void OnDisable()
+    {
+        _counter.CounterChanged -= UpdateCounter;
+    }
+
+    public void UpdateCounter()
+    {
+        _text.text = "Counter: " + _counter.CounterValue;
     }
 }
